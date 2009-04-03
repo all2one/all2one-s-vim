@@ -1,10 +1,35 @@
 " Vim syntax file
 "
-" Language:	AutoIt v3 (http://www.autoitscript.com/autoit3/)
+" Language:		AutoIt v3 (http://www.autoitscript.com/autoit3/)
 " Maintainer:	Jared Breland <jbreland@legroom.net>
 " Authored By:	Riccardo Casini <ric@libero.it>
-" Script URL:	http://www.vim.org/scripts/script.php?script_id=1239
+" URL:			http://www.vim.org/scripts/script.php?script_id=1239
 " ChangeLog:	Please visit the script URL for detailed change information
+" 	v1.8 10/09/08 by Jared Breland <jbreland@legroom.net>
+" 		updated for AutoIt 3.2.12.1
+" 	v1.7 02/24/08 by Jared Breland <jbreland@legroom.net>
+" 		updated for AutoIt 3.2.10.0
+" 	v1.6 06/10/07 by Jared Breland <jbreland@legroom.net>
+" 		updated for AutoIt 3.2.4.9
+" 	v1.5 01/10/07 by Jared Breland <jbreland@legroom.net>
+" 		updated for AutoIt 3.2.2.0
+" 		updated constant and option strings to recognize ' and " quotes
+" 		more cleanup for inclusion in Vim distribution
+" 	v1.4 08/27/06 by Jared Breland <jbreland@legroom.net>
+" 		update for AutoIt 3.2.0.1
+" 		cleanup for inclusion in Vim distribution
+" 	v1.3 05/13/06 by Jared Breland <jbreland@legroom.net>
+" 		update for AutoIt 3.1.1.123-beta
+" 		added Styles section
+" 		added Constants section
+" 		added Send Key section
+" 		changed variable formatting to match PHP style
+" 		(to better distinguish between user vars and built-ins)
+"	v1.2 10/07/05 by Jared Breland <jbreland@legroom.net>
+" 		update for AutoIt 3.1.1.78-beta
+" 		added Options section
+" 	v1.1 03/15/05 by Jared Breland <jbreland@legroom.net>
+" 		updated for AutoIt 3.1.0
 
 " AutoIt is not case dependent
 syn case ignore
@@ -47,14 +72,14 @@ syn keyword autoitFunction FileChangeDir FileClose FileCopy FileCreateNTFSLink
 	\ FileSetTime FileWrite FileWriteLine
 syn keyword autoitFunction IniDelete IniRead IniReadSection IniReadSectionNames
 	\ IniRenameSection IniWrite IniWriteSection
-syn keyword autoitFunction StderrRead StdinWrite StdoutRead
+syn keyword autoitFunction StderrRead StdioClose StdinWrite StdoutRead
 " graphic and sound
 syn keyword autoitFunction Beep PixelChecksum PixelGetColor PixelSearch
 	\ SoundPlay SoundSetWaveVolume
 " gui reference
 syn keyword autoitFunction GUICreate GUIDelete GUICtrlGetHandle GUICtrlGetState
 	\ GUICtrlRead GUICtrlRecvMsg GUICtrlSendMsg GUICtrlSendToDummy
-	\ GUIGetCursorInfo GUIGetMsg GUIRegisterMsg GUIStartGroup GUISwitch
+	\ GUIGetCursorInfo GUIGetMsg GUIGetStyle GUIRegisterMsg GUIStartGroup GUISwitch
 syn keyword autoitFunction GUICtrlCreateAvi GUICtrlCreateButton
 	\ GUICtrlCreateCheckbox GUICtrlCreateCombo GUICtrlCreateContextMenu
 	\ GUICtrlCreateDate GUICtrlCreateDummy GUICtrlCreateEdit
@@ -66,15 +91,15 @@ syn keyword autoitFunction GUICtrlCreateAvi GUICtrlCreateButton
 	\ GUICtrlCreateSlider GUICtrlCreateTab GUICtrlCreateTabItem
 	\ GUICtrlCreateTreeView GUICtrlCreateTreeViewItem
 	\ GUICtrlCreateUpDown GUICtrlDelete
-syn keyword autoitFunction GUICtrlRegisterListViewSort GUICtrlSetBkColor
-	\ GUICtrlSetColor GUICtrlSetCursor GUICtrlSetData GUICtrlSetFont
-	\ GUICtrlSetGraphic GUICtrlSetImage GUICtrlSetLimit GUICtrlSetOnEvent
-	\ GUICtrlSetPos GUICtrlSetResizing GUICtrlSetState GUICtrlSetStyle
-	\ GUICtrlSetTip
+syn keyword autoitFunction GUICtrlRegisterListViewSort GUISetAccelerators
+	\ GUICtrlSetBkColor GUICtrlSetColor GUICtrlSetCursor GUICtrlSetData
+	\ GUICtrlSetDefBkColor GUICtrlSetDefColor GUICtrlSetFont GUICtrlSetGraphic
+	\ GUICtrlSetImage GUICtrlSetLimit GUICtrlSetOnEvent GUICtrlSetPos
+	\ GUICtrlSetResizing GUICtrlSetState GUICtrlSetStyle GUICtrlSetTip
 syn keyword autoitFunction GUISetBkColor GUISetCoord GUISetCursor GUISetFont
 	\ GUISetHelp GUISetIcon GUISetOnEvent GUISetState
 " keyboard control
-syn keyword autoitFunction HotKeySet Send
+syn keyword autoitFunction HotKeySet Send SendKeepActive
 " math
 syn keyword autoitFunction Abs ACos ASin ATan BitAND BitNOT BitOR BitRotate
 	\ BitShift BitXOR Cos Ceiling Exp Floor Log Mod Random Round Sin Sqrt
@@ -85,7 +110,7 @@ syn keyword autoitFunction InputBox MsgBox ProgressOff ProgressOn ProgressSet
 " miscellaneous
 syn keyword autoitFunction AdlibDisable AdlibEnable AutoItSetOption
 	\ AutoItWinGetTitle AutoItWinSetTitle BlockInput Break Call CDTray
-	\ Execute Opt SetError SetExtended
+	\ Execute Opt SetError SetExtended VarGetType
 " mouse control
 syn keyword autoitFunction MouseClick MouseClickDrag MouseDown MouseGetCursor
 	\ MouseGetPos MouseMove MouseUp MouseWheel
@@ -97,21 +122,21 @@ syn keyword autoitFunction FtpSetProxy HttpSetProxy InetGet InetGetSize Ping
 " obj/com reference
 syn keyword autoitFunction ObjCreate ObjEvent ObjGet ObjName
 " process management
-syn keyword autoitFunction DllCall DllClose DllOpen DllStructCreate
-	\ DllStructGetData DllStructGetPtr DllStructGetSize DllStructSetData
-	\ ProcessClose ProcessExists ProcessSetPriority ProcessList ProcessWait
-	\ ProcessWaitClose Run RunAsSet RunWait ShellExecute ShellExecuteWait
-	\ Shutdown
+syn keyword autoitFunction DllCall DllCallbackFree DllCallbackGetPtr
+	\ DllCallbackRegister DllClose DllOpen DllStructCreate DllStructGetData
+	\ DllStructGetPtr DllStructGetSize DllStructSetData ProcessClose
+	\ ProcessExists ProcessGetStats ProcessSetPriority ProcessList ProcessWait
+	\ ProcessWaitClose Run RunAs RunAsWait RunWait ShellExecute ShellExecuteWait Shutdown
 	" removed from 3.2.0 docs - PluginClose PluginOpen
 " registry management
 syn keyword autoitFunction RegDelete RegEnumKey RegEnumVal RegRead RegWrite
 " string management
-syn keyword autoitFunction StringAddCR StringFormat StringInStr StringIsAlNum
-	\ StringIsAlpha StringIsASCII StringIsDigit StringIsFloat StringIsInt
-	\ StringIsLower StringIsSpace StringIsUpper StringIsXDigit StringLeft
-	\ StringLen StringLower StringMid StringRegExp StringRegExpReplace
-	\ StringReplace StringRight StringSplit StringStripCR StringStripWS
-	\ StringTrimLeft StringTrimRight StringUpper
+syn keyword autoitFunction StringAddCR StringCompare StringFormat StringInStr
+	\ StringIsAlNum StringIsAlpha StringIsASCII StringIsDigit StringIsFloat
+	\ StringIsInt StringIsLower StringIsSpace StringIsUpper StringIsXDigit
+	\ StringLeft StringLen StringLower StringMid StringRegExp
+	\ StringRegExpReplace StringReplace StringRight StringSplit
+	\ StringStripCR StringStripWS StringTrimLeft StringTrimRight StringUpper
 " timer and delay
 syn keyword autoitFunction Sleep TimerInit TimerDiff
 " tray
@@ -120,9 +145,10 @@ syn keyword autoitFunction TrayCreateItem TrayCreateMenu TrayItemDelete
 	\ TrayItemSetState TrayItemSetText TrayGetMsg TraySetClick TraySetIcon
 	\ TraySetOnEvent TraySetPauseIcon TraySetState TraySetToolTip TrayTip
 " variables and conversions
-syn keyword autoitFunction Asc Assign Binary Chr Dec Eval Hex HWnd Int IsAdmin
-	\ IsArray IsBinaryString IsBool IsDeclared IsDllStruct IsFloat IsHWnd
-	\ IsInt IsKeyword IsNumber IsObj IsString Number String UBound
+syn keyword autoitFunction Asc AscW Assign Binary BinaryLen BinaryMid
+	\ BinaryToString Chr ChrW Dec Eval Hex HWnd Int IsAdmin IsArray IsBinary
+	\ IsBool IsDeclared IsDllStruct IsFloat IsHWnd IsInt IsKeyword IsNumber
+	\ IsObj IsString Number String StringToBinary UBound
 " window management
 syn keyword autoitFunction WinActivate WinActive WinClose WinExists WinFlash
 	\ WinGetCaretPos WinGetClassList WinGetClientSize WinGetHandle WinGetPos
@@ -133,7 +159,7 @@ syn keyword autoitFunction WinActivate WinActive WinClose WinExists WinFlash
 syn keyword autoitFunction ControlClick ControlCommand ControlDisable
 	\ ControlEnable ControlFocus ControlGetFocus ControlGetHandle
 	\ ControlGetPos ControlGetText ControlHide ControlListView ControlMove
-	\ ControlSend ControlSetText ControlShow StatusBarGetText
+	\ ControlSend ControlSetText ControlShow ControlTreeView StatusBarGetText
 
 " user defined functions
 " array
@@ -325,6 +351,8 @@ syn match autoitBuiltin "@AppData\(Common\)\=Dir"
 syn match autoitBuiltin "@AutoItExe"
 syn match autoitBuiltin "@AutoItPID"
 syn match autoitBuiltin "@AutoItVersion"
+syn match autoitBuiltin "@AutoItUnicode"
+syn match autoitBuiltin "@AutoItX64"
 syn match autoitBuiltin "@COM_EventObj"
 syn match autoitBuiltin "@CommonFilesDir"
 syn match autoitBuiltin "@Compiled"
@@ -506,7 +534,7 @@ syn match autoitSend "{PRINTSCREEN}" contained
 syn match autoitSend "{LWIN}" contained
 syn match autoitSend "{RWIN}" contained
 syn match autoitSend "{NUMLOCK}" contained
-syn match autoitSend "{CTRLBREAK}" contained
+syn match autoitSend "{BREAK}" contained
 syn match autoitSend "{PAUSE}" contained
 syn match autoitSend "{CAPSLOCK}" contained
 syn match autoitSend "{NUMPAD0}" contained
@@ -574,7 +602,6 @@ syn match autoitVariable "$\w\+" contains=autoitVarSelector
 
 " options - must be defined after autoitStrings
 syn match autoitOption "\([\"\']\)CaretCoordMode\1"
-syn match autoitOption "\([\"\']\)ColorMode\1"
 syn match autoitOption "\([\"\']\)ExpandEnvStrings\1"
 syn match autoitOption "\([\"\']\)ExpandVarStrings\1"
 syn match autoitOption "\([\"\']\)FtpBinaryMode\1"
@@ -591,7 +618,6 @@ syn match autoitOption "\([\"\']\)MouseCoordMode\1"
 syn match autoitOption "\([\"\']\)MustDeclareVars\1"
 syn match autoitOption "\([\"\']\)OnExitFunc\1"
 syn match autoitOption "\([\"\']\)PixelCoordMode\1"
-syn match autoitOption "\([\"\']\)RunErrorsFatal\1"
 syn match autoitOption "\([\"\']\)SendAttachMode\1"
 syn match autoitOption "\([\"\']\)SendCapslockMode\1"
 syn match autoitOption "\([\"\']\)SendKeyDelay\1"
